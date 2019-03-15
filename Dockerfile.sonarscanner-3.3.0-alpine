@@ -6,8 +6,9 @@ LABEL maintainer="Ryan Mitchell <mitch@ryansmitchell.com>"
 
 WORKDIR /root
 
+RUN apk add --no-cache  curl grep sed unzip nodejs npm
+
 RUN set -x &&\
-  apk add --no-cache  curl grep sed unzip &&\
   curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$RELEASE-linux.zip &&\
   unzip sonarscanner.zip &&\
   rm sonarscanner.zip &&\
