@@ -1,22 +1,24 @@
 FROM openjdk:8-alpine
 
+ARG RELEASE=3.0.3.778
+
 LABEL maintainer="Ryan Mitchell <mitch@ryansmitchell.com>"
 
 WORKDIR /root
 
 RUN set -x &&\
   apk add --no-cache  curl grep sed unzip &&\
-  curl --insecure -o ./sonarscanner.zip -L https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip &&\
+  curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$RELEASE-linux.zip &&\
   unzip sonarscanner.zip &&\
   rm sonarscanner.zip &&\
-  rm sonar-scanner-3.0.3.778-linux/jre -rf &&\
+  rm sonar-scanner-$RELEASE-linux/jre -rf &&\
 #   ensure Sonar uses the provided Java for musl instead of a borked glibc one
-  sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner
+  sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner
 
-ENV SONAR_RUNNER_HOME=/root/sonar-scanner-3.0.3.778-linux
-ENV PATH $PATH:/root/sonar-scanner-3.0.3.778-linux/bin
+ENV SONAR_RUNNER_HOME=/root/sonar-scanner-$RELEASE-linux
+ENV PATH $PATH:/root/sonar-scanner-$RELEASE-linux/bin
 
-COPY sonar-runner.properties ./sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
+COPY sonar-runner.properties ./sonar-scanner-$RELEASE-linux/conf/sonar-scanner.properties
 
 # Use bash if you want to run the environment from inside the shell, otherwise use the command that actually runs the underlying stuff
 #CMD /bin/bash
