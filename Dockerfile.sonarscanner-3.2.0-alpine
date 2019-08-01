@@ -1,12 +1,12 @@
 FROM openjdk:8-alpine
 
-ARG RELEASE=3.0.3.778
+ARG RELEASE=3.2.0.1227
 
 LABEL maintainer="Ryan Mitchell <mitch@ryansmitchell.com>"
 
 WORKDIR /root
 
-RUN apk add --no-cache  curl grep sed unzip
+RUN apk add --no-cache  curl grep sed unzip nodejs
 
 RUN set -x &&\
   curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$RELEASE-linux.zip &&\
