@@ -63,7 +63,7 @@ Qube server. If you need to change that or any other of the variables that Scann
 
 or if you're running the `newtmitch/sonar-scanner:2.5.1` image, because the script name changed between 2.5.1 and 3.0.3 at some point:
 
-    docker run -ti -v $(pwd):/root/src --link sonarqube newtmitch/sonar-scanner sonar-runner sonar.host.url=YOURURL -Dsonar.projectBaseDir=./src
+    docker run -ti -v $(pwd):/root/src --link sonarqube newtmitch/sonar-scanner sonar-runner -Dsonar.host.url=YOURURL -Dsonar.projectBaseDir=./src
 
 Here's a fully-loaded command line (based on latest/3.0.3 version) that basically overrides everything from the sonar-runner.properties file on the command-line itself. The settings shown here match those in the sonar-runner.properties file.
 
